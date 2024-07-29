@@ -425,7 +425,7 @@ def palette_image2raw(input_image,output_filename,palette,add_dimensions=False,f
 
     actual_nb_planes = nb_planes
     if generate_mask:
-        actual_nb_planes+=1
+        actual_nb_planes*=2
 
     out = [0]*(actual_nb_planes*plane_size)
     for y in range(height):
@@ -463,10 +463,10 @@ def palette_image2raw(input_image,output_filename,palette,add_dimensions=False,f
         bw = width//8 
         for y in range(height):
             for x in range(bw):
-                if generate_mask:
-                    outi[nb_planes*plane_size + y*bw + x] = out[nb_planes*plane_size + y*bw + x]
                 for pindex in range(nb_planes):
                     outi[(y*nb_planes + pindex)*bw + x] = out[pindex*plane_size + y*bw + x]
+                    if generate_mask:
+                        outi[nb_planes*plane_size + (y*nb_planes + pindex)*bw + x] = out[nb_planes*plane_size + y*bw + x]
 
         out = bytes(outi)
 
