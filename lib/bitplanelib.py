@@ -425,7 +425,10 @@ def palette_image2raw(input_image,output_filename,palette,add_dimensions=False,f
 
     actual_nb_planes = nb_planes
     if generate_mask:
-        actual_nb_planes*=2
+        if interleave:
+            actual_nb_planes*=2
+        else:
+            actual_nb_planes+=1
 
     out = [0]*(actual_nb_planes*plane_size)
     for y in range(height):
