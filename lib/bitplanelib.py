@@ -202,7 +202,7 @@ def palette_regdump2palette(text):
     return [item for k,item in sorted(rval.items())]
 
 def round4(color):
-    # divides by 16 but rounds to nearest, limiting to F
+    # maps color range 0-255 to 0-15, limiting to 15
     return min(int(round(color/255*15)),0xF)
 
 def __palette_dump(palette,f,pformat,low_nibble):
